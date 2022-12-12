@@ -8,6 +8,8 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 {
     public class UserPuzzle
     {
+        public bool IsSuccessful { get; set; }
+
         public int UserId { get; set; }
 
         public User User { get; set; }

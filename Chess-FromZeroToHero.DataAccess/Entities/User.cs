@@ -19,5 +19,9 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
         public int Age { get; set; }
 
         public byte[] ProfilePicture { get; set; }
+
+        public ICollection<Game> Games { get; set; }
+
+        public ICollection<UserPuzzle> UserPuzzles { get; set; }
     }
 }

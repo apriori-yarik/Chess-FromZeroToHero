@@ -25,5 +25,7 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
         public int BlackUserId { get; set; }
 
         public User BlackUser { get; set; }
+
+        public ICollection<Position> Positions { get; set; }
     }
 }

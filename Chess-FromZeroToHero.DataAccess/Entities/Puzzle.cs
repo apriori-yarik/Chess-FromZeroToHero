@@ -13,5 +13,11 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
         public int Likes { get; set; }
 
         public string Solution { get; set; }
+
+        public int PositionId { get; set; }
+
+        public Position Position { get; set; }
+
+        public ICollection<UserPuzzle> UserPuzzles { get; set; }
     }
 }
