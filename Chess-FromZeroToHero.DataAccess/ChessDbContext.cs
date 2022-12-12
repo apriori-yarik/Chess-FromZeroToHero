@@ -1,16 +1,22 @@
 ﻿using Chess_FromZeroToHero.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions;
 
 namespace Chess_FromZeroToHero.DataAccess
 {
     public class ChessDbContext : DbContext
     {
+        public ChessDbContext()
+        {
+        }
+
         public ChessDbContext(DbContextOptions<ChessDbContext> options)
             : base(options)
         {
@@ -20,9 +26,10 @@ namespace Chess_FromZeroToHero.DataAccess
         {
             modelBuilder.Entity<User>(u =>
             {
-                u.Property(x => x.Username).HasMaxLength(300).IsRequired();
+                u.Property(x => x.Username).HasMaxLength(100).IsRequired();
                 u.HasIndex(x => x.Username).IsUnique();
                 u.Property(x => x.Password).IsRequired();
+                u.Property(x => x.Name).HasMaxLength(300).IsRequired();
                 u.Property(x => x.Age).IsRequired();
                 u.Property(x => x.Rating).HasDefaultValue(1200).IsRequired();
             });
@@ -33,7 +40,7 @@ namespace Chess_FromZeroToHero.DataAccess
                 p.Property(x => x.Turn).IsRequired();
 
                 p.HasOne(x => x.Game).WithMany(x => x.Positions);
-                p.HasOne(x => x.Puzzle).WithOne(x => x.Position);
+                p.HasOne(x => x.Puzzle).WithOne(x => x.Position).HasForeignKey<Puzzle>(x => x.PositionId);
             });
 
             modelBuilder.Entity<Game>(g =>
@@ -46,8 +53,8 @@ namespace Chess_FromZeroToHero.DataAccess
                 g.Property(x => x.CreatedDate).IsRequired();
                 g.Property(x => x.IsRated).IsRequired();
 
-                g.HasOne(x => x.WhiteUser).WithMany(x => x.Games).HasForeignKey(x => x.WhiteUserId);
-                g.HasOne(x => x.BlackUser).WithMany(x => x.Games).HasForeignKey(x => x.BlackUserId);
+                g.HasOne(x => x.WhiteUser).WithMany(x => x.WhiteGames).HasForeignKey(x => x.WhiteUserId);
+                g.HasOne(x => x.BlackUser).WithMany(x => x.BlackGames).HasForeignKey(x => x.BlackUserId);
             });
 
             modelBuilder.Entity<Puzzle>(p =>

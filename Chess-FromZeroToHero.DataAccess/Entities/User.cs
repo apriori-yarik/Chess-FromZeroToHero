@@ -20,7 +20,9 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 
         public byte[] ProfilePicture { get; set; }
 
-        public ICollection<Game> Games { get; set; }
+        public ICollection<Game> WhiteGames { get; set; }
+
+        public ICollection<Game> BlackGames { get; set; }
 
         public ICollection<UserPuzzle> UserPuzzles { get; set; }
     }
