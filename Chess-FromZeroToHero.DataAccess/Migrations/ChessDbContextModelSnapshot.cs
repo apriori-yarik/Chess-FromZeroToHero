@@ -30,9 +30,6 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BlackUserId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -48,14 +45,7 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                     b.Property<int>("TimeIncrement")
                         .HasColumnType("int");
 
-                    b.Property<int>("WhiteUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("BlackUserId");
-
-                    b.HasIndex("WhiteUserId");
 
                     b.ToTable("Game");
                 });
@@ -170,6 +160,24 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserGame", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Color")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "GameId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("UserGame");
+                });
+
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserPuzzle", b =>
                 {
                     b.Property<int>("UserId")
@@ -186,25 +194,6 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                     b.HasIndex("PuzzleId");
 
                     b.ToTable("UserPuzzle");
-                });
-
-            modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Game", b =>
-                {
-                    b.HasOne("Chess_FromZeroToHero.DataAccess.Entities.User", "BlackUser")
-                        .WithMany("BlackGames")
-                        .HasForeignKey("BlackUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Chess_FromZeroToHero.DataAccess.Entities.User", "WhiteUser")
-                        .WithMany("WhiteGames")
-                        .HasForeignKey("WhiteUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("BlackUser");
-
-                    b.Navigation("WhiteUser");
                 });
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Position", b =>
@@ -229,6 +218,25 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                     b.Navigation("Position");
                 });
 
+            modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserGame", b =>
+                {
+                    b.HasOne("Chess_FromZeroToHero.DataAccess.Entities.Game", "Game")
+                        .WithMany("UserGames")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chess_FromZeroToHero.DataAccess.Entities.User", "User")
+                        .WithMany("UserGames")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserPuzzle", b =>
                 {
                     b.HasOne("Chess_FromZeroToHero.DataAccess.Entities.Puzzle", "Puzzle")
@@ -251,6 +259,8 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Game", b =>
                 {
                     b.Navigation("Positions");
+
+                    b.Navigation("UserGames");
                 });
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Position", b =>
@@ -266,11 +276,9 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.User", b =>
                 {
-                    b.Navigation("BlackGames");
+                    b.Navigation("UserGames");
 
                     b.Navigation("UserPuzzles");
-
-                    b.Navigation("WhiteGames");
                 });
 #pragma warning restore 612, 618
         }

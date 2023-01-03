@@ -18,14 +18,16 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        public int WhiteUserId { get; set; }
+        //public int WhiteUserId { get; set; }
 
-        public User WhiteUser { get; set; }
+        //public User WhiteUser { get; set; }
 
-        public int BlackUserId { get; set; }
+        //public int BlackUserId { get; set; }
 
-        public User BlackUser { get; set; }
+        //public User BlackUser { get; set; }
 
         public ICollection<Position> Positions { get; set; }
+
+        public ICollection<UserGame> UserGames { get; set; }
     }
 }

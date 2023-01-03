@@ -12,6 +12,23 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Game",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TimeControl = table.Column<int>(type: "int", nullable: false),
+                    TimeIncrement = table.Column<int>(type: "int", nullable: false),
+                    Result = table.Column<int>(type: "int", nullable: false),
+                    IsRated = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Game", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -27,37 +44,6 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Game",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeControl = table.Column<int>(type: "int", nullable: false),
-                    TimeIncrement = table.Column<int>(type: "int", nullable: false),
-                    Result = table.Column<int>(type: "int", nullable: false),
-                    IsRated = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WhiteUserId = table.Column<int>(type: "int", nullable: false),
-                    BlackUserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Game", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Game_User_BlackUserId",
-                        column: x => x.BlackUserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Game_User_WhiteUserId",
-                        column: x => x.WhiteUserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +66,31 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                         name: "FK_Position_Game_GameId",
                         column: x => x.GameId,
                         principalTable: "Game",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserGame",
+                columns: table => new
+                {
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGame", x => new { x.UserId, x.GameId });
+                    table.ForeignKey(
+                        name: "FK_UserGame_Game_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Game",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserGame_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -132,16 +143,6 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Game_BlackUserId",
-                table: "Game",
-                column: "BlackUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Game_WhiteUserId",
-                table: "Game",
-                column: "WhiteUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Position_GameId",
                 table: "Position",
                 column: "GameId");
@@ -159,6 +160,11 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserGame_GameId",
+                table: "UserGame",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserPuzzle_PuzzleId",
                 table: "UserPuzzle",
                 column: "PuzzleId");
@@ -168,19 +174,22 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "UserGame");
+
+            migrationBuilder.DropTable(
                 name: "UserPuzzle");
 
             migrationBuilder.DropTable(
                 name: "Puzzle");
 
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "Position");
 
             migrationBuilder.DropTable(
                 name: "Game");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

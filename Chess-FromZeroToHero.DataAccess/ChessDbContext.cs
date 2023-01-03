@@ -48,13 +48,8 @@ namespace Chess_FromZeroToHero.DataAccess
                 g.Property(x => x.TimeControl).IsRequired();
                 g.Property(x => x.TimeIncrement).IsRequired();
                 g.Property(x => x.Result).IsRequired();
-                g.Property(x => x.WhiteUserId).IsRequired();
-                g.Property(x => x.BlackUserId).IsRequired();
                 g.Property(x => x.CreatedDate).IsRequired();
                 g.Property(x => x.IsRated).IsRequired();
-
-                g.HasOne(x => x.WhiteUser).WithMany(x => x.WhiteGames).HasForeignKey(x => x.WhiteUserId);
-                g.HasOne(x => x.BlackUser).WithMany(x => x.BlackGames).HasForeignKey(x => x.BlackUserId);
             });
 
             modelBuilder.Entity<Puzzle>(p =>
@@ -77,6 +72,18 @@ namespace Chess_FromZeroToHero.DataAccess
 
                 up.HasOne(x => x.User).WithMany(x => x.UserPuzzles);
                 up.HasOne(x => x.Puzzle).WithMany(x => x.UserPuzzles);
+            });
+
+            modelBuilder.Entity<UserGame>(up =>
+            {
+                up.Property(x => x.UserId).IsRequired();
+                up.Property(x => x.GameId).IsRequired();
+                up.Property(x => x.Color).IsRequired();
+
+                up.HasKey(x => new { x.UserId, x.GameId });
+
+                up.HasOne(x => x.User).WithMany(x => x.UserGames);
+                up.HasOne(x => x.Game).WithMany(x => x.UserGames);
             });
         }
     }
