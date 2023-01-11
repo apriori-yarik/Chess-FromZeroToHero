@@ -14,7 +14,7 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 
         public string Solution { get; set; }
 
-        public int PositionId { get; set; }
+        public Guid PositionId { get; set; }
 
         public Position Position { get; set; }
 

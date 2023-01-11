@@ -9,11 +9,11 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 {
     public class UserGame
     {
-        public int GameId { get; set; }
+        public Guid GameId { get; set; }
 
         public Game Game { get; set; }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public User User { get; set; }
 

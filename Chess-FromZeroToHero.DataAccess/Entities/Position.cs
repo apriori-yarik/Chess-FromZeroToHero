@@ -16,11 +16,11 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 
         public int? BlackTimeLeft { get; set; }
 
-        public int? GameId { get; set; }
+        public Guid? GameId { get; set; }
 
         public Game Game { get; set; }
 
-        public int? PuzzleId { get; set; }
+        public Guid? PuzzleId { get; set; }
 
         public Puzzle Puzzle { get; set; }
     }

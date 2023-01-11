@@ -10,11 +10,11 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
     {
         public bool IsSuccessful { get; set; }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public User User { get; set; }
 
-        public int PuzzleId { get; set; }
+        public Guid PuzzleId { get; set; }
 
         public Puzzle Puzzle { get; set; }
     }
