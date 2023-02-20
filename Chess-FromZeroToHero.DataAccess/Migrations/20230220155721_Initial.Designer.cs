@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChessFromZeroToHero.DataAccess.Migrations
 {
     [DbContext(typeof(ChessDbContext))]
-    [Migration("20230103163959_Initial")]
+    [Migration("20230220155721_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Game", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -55,11 +53,9 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Position", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("BlackTimeLeft")
                         .HasColumnType("int");
@@ -69,12 +65,12 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("GameId")
+                    b.Property<Guid?>("GameId")
                         .IsRequired()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PuzzleId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("PuzzleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Turn")
                         .HasColumnType("bit");
@@ -91,19 +87,17 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.Puzzle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Likes")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.Property<int>("PositionId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PositionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -123,11 +117,9 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -165,11 +157,11 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserGame", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Color")
                         .HasColumnType("int");
@@ -183,11 +175,11 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
 
             modelBuilder.Entity("Chess_FromZeroToHero.DataAccess.Entities.UserPuzzle", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PuzzleId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PuzzleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsSuccessful")
                         .HasColumnType("bit");

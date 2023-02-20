@@ -15,8 +15,7 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "Game",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TimeControl = table.Column<int>(type: "int", nullable: false),
                     TimeIncrement = table.Column<int>(type: "int", nullable: false),
                     Result = table.Column<int>(type: "int", nullable: false),
@@ -32,8 +31,7 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false, defaultValue: 1200),
@@ -50,14 +48,13 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "Position",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Turn = table.Column<bool>(type: "bit", nullable: false),
                     WhiteTimeLeft = table.Column<int>(type: "int", nullable: true),
                     BlackTimeLeft = table.Column<int>(type: "int", nullable: true),
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    PuzzleId = table.Column<int>(type: "int", nullable: true)
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PuzzleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,8 +71,8 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "UserGame",
                 columns: table => new
                 {
-                    GameId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Color = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -99,12 +96,11 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "Puzzle",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Solution = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    PositionId = table.Column<int>(type: "int", nullable: false)
+                    PositionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,8 +117,8 @@ namespace ChessFromZeroToHero.DataAccess.Migrations
                 name: "UserPuzzle",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PuzzleId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PuzzleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsSuccessful = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
