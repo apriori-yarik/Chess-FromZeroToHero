@@ -22,6 +22,8 @@ namespace Chess_FromZeroToHero.DataAccess
         {
         }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(u =>
