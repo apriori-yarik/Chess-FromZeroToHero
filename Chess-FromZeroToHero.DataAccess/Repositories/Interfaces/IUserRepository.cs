@@ -10,8 +10,14 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<UserWithIdDto> GetUserById(Guid id);
+        Task<UserWithIdDto> GetUserByIdAsync(Guid id);
 
-        Task<ICollection<UserWithIdDto>> GetUsers(PaginationParams paginationParams);
+        Task<ICollection<UserWithIdDto>> GetUsersAsync(PaginationParams paginationParams);
+
+        Task CreateUserAsync(UserDto dto);
+
+        Task UpdateUserAsync(UserWithIdDto dto);
+
+        Task DeleteUserAsync(Guid id);
     }
 }
