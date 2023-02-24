@@ -21,10 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chess-FromZeroToHero.DataAccess\Chess-FromZeroToHero.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Chess-FromZeroToHero.Services\Chess-FromZeroToHero.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -25,7 +25,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         private async Task<User> GetUserEntityByIdAsync(Guid id)
         {
-            User user = await _dbContext.Users.FindAsync(id);
+            User user = await _dbContext.User.FindAsync(id);
 
             if (user is null)
             {
@@ -53,7 +53,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         public async Task<ICollection<UserWithIdDto>> GetUsersAsync(PaginationParams paginationParams)
         {
-            var query = PaginationHelper.Paginate(_dbContext.Users, paginationParams);
+            var query = PaginationHelper.Paginate(_dbContext.User.AsNoTracking(), paginationParams);
 
             var users = await query
                 .Select(user => new UserWithIdDto()
@@ -88,7 +88,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                 ProfilePicture = dto.ProfilePicture,
             };
 
-            await _dbContext.Users.AddAsync(user);
+            await _dbContext.User.AddAsync(user);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -103,15 +103,24 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             user.Rating = dto.Rating;
             user.ProfilePicture = dto.ProfilePicture;
 
-            _dbContext.Users.Update(user);
+            _dbContext.User.Update(user);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteUserAsync(Guid id)
+        public async Task DeleteUserAsync(UserWithIdDto dto)
         {
-            var user = await GetUserEntityByIdAsync(id);
+            var user = new User()
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Age = dto.Age,
+                Username = dto.Username,
+                Password = dto.Password,
+                Rating = dto.Rating,
+                ProfilePicture = dto.ProfilePicture,
+            };
 
-            _dbContext.Users.Remove(user);
+            _dbContext.User.Remove(user);
             await _dbContext.SaveChangesAsync();
         }
     }

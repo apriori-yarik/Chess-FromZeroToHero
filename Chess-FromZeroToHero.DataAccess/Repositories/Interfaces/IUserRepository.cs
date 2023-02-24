@@ -18,6 +18,6 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories.Interfaces
 
         Task UpdateUserAsync(UserWithIdDto dto);
 
-        Task DeleteUserAsync(Guid id);
+        Task DeleteUserAsync(UserWithIdDto dto);
     }
 }

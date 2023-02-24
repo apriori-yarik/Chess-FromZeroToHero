@@ -22,7 +22,7 @@ namespace Chess_FromZeroToHero.Services.Services
 
         public async Task CreateUserAsync(UserDto dto) => await _userRepository.CreateUserAsync(dto);
 
-        public async Task DeleteUserAsync(Guid id) => await _userRepository.DeleteUserAsync(id);
+        public async Task DeleteUserAsync(UserWithIdDto dto) => await _userRepository.DeleteUserAsync(dto);
 
         public async Task<UserWithIdDto> GetUserByIdAsync(Guid id) => await _userRepository.GetUserByIdAsync(id);
 
