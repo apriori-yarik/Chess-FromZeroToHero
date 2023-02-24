@@ -10,7 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess-FromZeroToHero", "Che
 		{F567EBE4-FB6C-4E29-BCE3-8941311F45C4} = {F567EBE4-FB6C-4E29-BCE3-8941311F45C4}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess-FromZeroToHero.Contracts", "Chess-FromZeroToHero.Contracts\Chess-FromZeroToHero.Contracts.csproj", "{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess-FromZeroToHero.Contracts", "Chess-FromZeroToHero.Contracts\Chess-FromZeroToHero.Contracts.csproj", "{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess-FromZeroToHero.Services", "Chess-FromZeroToHero.Services\Chess-FromZeroToHero.Services.csproj", "{27A3688A-5D53-486F-AEB0-A8523F825D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 		{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A3688A-5D53-486F-AEB0-A8523F825D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A3688A-5D53-486F-AEB0-A8523F825D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A3688A-5D53-486F-AEB0-A8523F825D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A3688A-5D53-486F-AEB0-A8523F825D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
