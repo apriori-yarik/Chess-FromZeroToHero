@@ -43,12 +43,12 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             return new UserWithIdDto 
             { 
                 Id = user.Id,
-                Name= user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Age = user.Age,
                 Username = user.Username,
                 Password = user.Password,
                 Rating = user.Rating,
-                ProfilePicture = user.ProfilePicture,
             };
         }
 
@@ -58,12 +58,12 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                 .Select(user => new UserWithIdDto()
                 {
                     Id = user.Id,
-                    Name = user.Name,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     Age = user.Age,
                     Username = user.Username,
                     Password = user.Password,
                     Rating = user.Rating,
-                    ProfilePicture = user.ProfilePicture,
                 })
                 .PaginateAsync(paginationParams);
 
@@ -74,12 +74,12 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
         {
             var user = new User()
             {
-                Name = dto.Name,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Age = dto.Age,
                 Username = dto.Username,
                 Password = dto.Password,
                 Rating = dto.Rating,
-                ProfilePicture = dto.ProfilePicture,
             };
 
             await _dbContext.User.AddAsync(user);
@@ -95,12 +95,12 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                 return false;
             }
 
-            user.Name = dto.Name;
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
             user.Age = dto.Age;
             user.Username = dto.Username;
             user.Password = dto.Password;
             user.Rating = dto.Rating;
-            user.ProfilePicture = dto.ProfilePicture;
 
             _dbContext.User.Update(user);
             await _dbContext.SaveChangesAsync();

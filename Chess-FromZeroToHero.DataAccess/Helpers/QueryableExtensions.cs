@@ -9,16 +9,13 @@ namespace Chess_FromZeroToHero.Contracts.Helpers
         {
             int elements = await query.CountAsync();
             int skip = (paginationParams.Page - 1) * paginationParams.ItemsPerPage;
-            int take = paginationParams.Page * paginationParams.ItemsPerPage > elements
-                ? paginationParams.Page * paginationParams.ItemsPerPage - elements
-                : paginationParams.ItemsPerPage;
 
             if (elements <= skip)
             {
-                throw new ArgumentException("Not enough data for the current page");
+                return new List<T>();
             }
 
-            return await query.Skip(skip).Take(take).ToListAsync();
+            return await query.Skip(skip).Take(paginationParams.ItemsPerPage).ToListAsync();
         }
     }
 }
