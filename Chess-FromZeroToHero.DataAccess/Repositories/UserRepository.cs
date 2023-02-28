@@ -8,6 +8,7 @@ using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -25,7 +26,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         private async Task<User> GetEntityByIdAsync(Guid id)
         {
-            User user = await _dbContext.User.FindAsync(id);
+            var user = await _dbContext.User.FindAsync(id);
 
             return user;
         }
@@ -33,6 +34,11 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
         public async Task<UserWithIdDto> GetByIdAsync(Guid id)
         {
             var user = await GetEntityByIdAsync(id);
+
+            if (user is null)
+            {
+                return null;
+            }
 
             return new UserWithIdDto 
             { 
@@ -66,11 +72,6 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         public async Task CreateAsync(UserDto dto)
         {
-            if (dto is null)
-            {
-                throw new ArgumentNullException("Cannot create user");
-            }
-
             var user = new User()
             {
                 Name = dto.Name,
@@ -85,9 +86,14 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(UserWithIdDto dto)
+        public async Task<bool> UpdateAsync(UserWithIdDto dto)
         {
             var user = await GetEntityByIdAsync(dto.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
 
             user.Name = dto.Name;
             user.Age = dto.Age;
@@ -98,6 +104,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
             _dbContext.User.Update(user);
             await _dbContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<int> DeleteAsync(Guid id)

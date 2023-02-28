@@ -72,14 +72,12 @@ namespace Chess_FromZeroToHero.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UserWithIdDto dto)
         {
-            var user = await _userService.GetByIdAsync(dto.Id);
+            var hasUpdated = await _userService.UpdateAsync(dto);
 
-            if (user is null)
+            if (!hasUpdated)
             {
                 return NotFound();
             }
-
-            await _userService.UpdateAsync(dto);
 
             return Ok();
         }
