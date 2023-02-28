@@ -27,11 +27,6 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
         {
             User user = await _dbContext.User.FindAsync(id);
 
-            if (user is null)
-            {
-                throw new ArgumentNullException("User with given id not found");
-            }
-
             return user;
         }
 

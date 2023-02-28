@@ -31,7 +31,7 @@ namespace Chess_FromZeroToHero.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync(PaginationParams pagination)
+        public async Task<IActionResult> GetAllAsync(PaginationParams pagination)
         {
             var users = await _userService.GetAllAsync(pagination);
 

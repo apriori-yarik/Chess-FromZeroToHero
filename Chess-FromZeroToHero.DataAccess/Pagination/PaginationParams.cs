@@ -1,16 +1,20 @@
-﻿namespace Chess_FromZeroToHero.DataAccess.Pagination
+﻿using System.Text.Json.Serialization;
+
+namespace Chess_FromZeroToHero.DataAccess.Pagination
 {
-    // TODO: make immutable
     public class PaginationParams
     {
         private const int maxItemsPerPage = 25;
-        private int _itemsPerPage;
 
-        public int Page { get; set; } = 1;
-        public int ItemsPerPage
+        public int Page { get; }
+
+        public int ItemsPerPage { get; }
+
+        [JsonConstructor]
+        public PaginationParams(int page, int itemsPerPage)
         {
-            get => _itemsPerPage;
-            set => _itemsPerPage = value > maxItemsPerPage ? maxItemsPerPage : _itemsPerPage;
+            Page = page;
+            ItemsPerPage = itemsPerPage > maxItemsPerPage ? maxItemsPerPage : itemsPerPage;
         }
     }
 }
