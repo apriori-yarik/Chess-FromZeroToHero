@@ -3,6 +3,7 @@ using Chess_FromZeroToHero.DataAccess.Pagination;
 using Chess_FromZeroToHero.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Chess_FromZeroToHero.Controllers
 {
@@ -35,7 +36,7 @@ namespace Chess_FromZeroToHero.Controllers
         {
             var users = await _userService.GetAllAsync(pagination);
 
-            if (users is null)
+            if (users.IsNullOrEmpty())
             {
                 return NoContent();
             }

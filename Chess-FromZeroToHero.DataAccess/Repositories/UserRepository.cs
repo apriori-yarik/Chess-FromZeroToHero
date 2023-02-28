@@ -24,16 +24,9 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             _dbContext = dbContext;
         }
 
-        private async Task<User> GetEntityByIdAsync(Guid id)
-        {
-            var user = await _dbContext.User.FindAsync(id);
-
-            return user;
-        }
-
         public async Task<UserWithIdDto> GetByIdAsync(Guid id)
         {
-            var user = await GetEntityByIdAsync(id);
+            var user = await _dbContext.User.FindAsync(id);
 
             if (user is null)
             {
@@ -47,7 +40,6 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                 LastName = user.LastName,
                 Age = user.Age,
                 Username = user.Username,
-                Password = user.Password,
                 Rating = user.Rating,
             };
         }
@@ -62,12 +54,11 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                     LastName = user.LastName,
                     Age = user.Age,
                     Username = user.Username,
-                    Password = user.Password,
                     Rating = user.Rating,
                 })
                 .PaginateAsync(paginationParams);
 
-            return users;
+            return users.OrderBy(x => x.Rating).ThenBy(x => x.Age).ToList();
         }
 
         public async Task CreateAsync(UserDto dto)
@@ -88,7 +79,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         public async Task<bool> UpdateAsync(UserWithIdDto dto)
         {
-            var user = await GetEntityByIdAsync(dto.Id);
+            var user = await _dbContext.User.FindAsync(dto.Id);
 
             if (user == null)
             {
