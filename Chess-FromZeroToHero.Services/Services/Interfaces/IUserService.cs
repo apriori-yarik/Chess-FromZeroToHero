@@ -10,13 +10,13 @@ namespace Chess_FromZeroToHero.Services.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserWithIdDto> GetUserByIdAsync(Guid id);
+        Task<UserWithIdDto> GetByIdAsync(Guid id);
 
-        Task<ICollection<UserWithIdDto>> GetUsersAsync(PaginationParams paginationParams);
+        Task<ICollection<UserWithIdDto>> GetAllAsync(PaginationParams paginationParams);
 
-        Task CreateUserAsync(UserDto dto);
+        Task CreateAsync(UserDto dto);
 
-        Task UpdateUserAsync(UserWithIdDto dto);
+        Task UpdateAsync(UserWithIdDto dto);
 
         Task<int> DeleteAsync(Guid id);
     }

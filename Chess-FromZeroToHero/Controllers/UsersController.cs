@@ -18,9 +18,9 @@ namespace Chess_FromZeroToHero.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserByIdAsync(Guid id)
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userService.GetByIdAsync(id);
 
             if (user is null)
             {
@@ -31,9 +31,9 @@ namespace Chess_FromZeroToHero.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsersAsync(PaginationParams pagination)
+        public async Task<IActionResult> GetAsync(PaginationParams pagination)
         {
-            var users = await _userService.GetUsersAsync(pagination);
+            var users = await _userService.GetAllAsync(pagination);
 
             if (users is null)
             {
@@ -44,20 +44,20 @@ namespace Chess_FromZeroToHero.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUserAsync(UserDto dto)
+        public async Task<IActionResult> CreateAsync(UserDto dto)
         {
             if (dto is null)
             {
                 return BadRequest();
             }
 
-            await _userService.CreateUserAsync(dto);
+            await _userService.CreateAsync(dto);
 
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             int rowsAffected = await _userService.DeleteAsync(id);
 
@@ -70,16 +70,16 @@ namespace Chess_FromZeroToHero.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUserAsync(UserWithIdDto dto)
+        public async Task<IActionResult> UpdateAsync(UserWithIdDto dto)
         {
-            var user = await _userService.GetUserByIdAsync(dto.Id);
+            var user = await _userService.GetByIdAsync(dto.Id);
 
             if (user is null)
             {
                 return NotFound();
             }
 
-            await _userService.UpdateUserAsync(dto);
+            await _userService.UpdateAsync(dto);
 
             return Ok();
         }

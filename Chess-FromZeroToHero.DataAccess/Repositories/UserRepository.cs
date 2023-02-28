@@ -23,7 +23,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             _dbContext = dbContext;
         }
 
-        private async Task<User> GetUserEntityByIdAsync(Guid id)
+        private async Task<User> GetEntityByIdAsync(Guid id)
         {
             User user = await _dbContext.User.FindAsync(id);
 
@@ -35,9 +35,9 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             return user;
         }
 
-        public async Task<UserWithIdDto> GetUserByIdAsync(Guid id)
+        public async Task<UserWithIdDto> GetByIdAsync(Guid id)
         {
-            var user = await GetUserEntityByIdAsync(id);
+            var user = await GetEntityByIdAsync(id);
 
             return new UserWithIdDto 
             { 
@@ -51,7 +51,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             };
         }
 
-        public async Task<ICollection<UserWithIdDto>> GetUsersAsync(PaginationParams paginationParams)
+        public async Task<ICollection<UserWithIdDto>> GetAllAsync(PaginationParams paginationParams)
         {
             var users = await _dbContext.User.AsNoTracking()
                 .Select(user => new UserWithIdDto()
@@ -69,7 +69,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             return users;
         }
 
-        public async Task CreateUserAsync(UserDto dto)
+        public async Task CreateAsync(UserDto dto)
         {
             if (dto is null)
             {
@@ -90,9 +90,9 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateUserAsync(UserWithIdDto dto)
+        public async Task UpdateAsync(UserWithIdDto dto)
         {
-            var user = await GetUserEntityByIdAsync(dto.Id);
+            var user = await GetEntityByIdAsync(dto.Id);
 
             user.Name = dto.Name;
             user.Age = dto.Age;
@@ -102,23 +102,6 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             user.ProfilePicture = dto.ProfilePicture;
 
             _dbContext.User.Update(user);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task DeleteUserAsync(UserWithIdDto dto)
-        {
-            var user = new User()
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                Age = dto.Age,
-                Username = dto.Username,
-                Password = dto.Password,
-                Rating = dto.Rating,
-                ProfilePicture = dto.ProfilePicture,
-            };
-
-            _dbContext.User.Remove(user);
             await _dbContext.SaveChangesAsync();
         }
 
