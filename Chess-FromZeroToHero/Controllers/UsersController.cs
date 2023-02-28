@@ -1,5 +1,5 @@
-﻿using Chess_FromZeroToHero.Contracts.Dtos.Pagination;
-using Chess_FromZeroToHero.Contracts.Dtos.User;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
+using Chess_FromZeroToHero.DataAccess.Pagination;
 using Chess_FromZeroToHero.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,14 +59,12 @@ namespace Chess_FromZeroToHero.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            int rowsAffected = await _userService.DeleteAsync(id);
 
-            if (user is null)
+            if (rowsAffected == 0)
             {
                 return NotFound();
             }
-
-            await _userService.DeleteUserAsync(user);
 
             return Ok();
         }

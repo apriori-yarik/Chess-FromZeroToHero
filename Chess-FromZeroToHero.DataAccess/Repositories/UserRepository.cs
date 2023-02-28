@@ -1,7 +1,7 @@
-﻿using Chess_FromZeroToHero.Contracts.Dtos.Pagination;
-using Chess_FromZeroToHero.Contracts.Dtos.User;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
 using Chess_FromZeroToHero.Contracts.Helpers;
 using Chess_FromZeroToHero.DataAccess.Entities;
+using Chess_FromZeroToHero.DataAccess.Pagination;
 using Chess_FromZeroToHero.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -53,9 +53,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
         public async Task<ICollection<UserWithIdDto>> GetUsersAsync(PaginationParams paginationParams)
         {
-            var query = PaginationHelper.Paginate(_dbContext.User.AsNoTracking(), paginationParams);
-
-            var users = await query
+            var users = await _dbContext.User.AsNoTracking()
                 .Select(user => new UserWithIdDto()
                 {
                     Id = user.Id,
@@ -66,7 +64,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                     Rating = user.Rating,
                     ProfilePicture = user.ProfilePicture,
                 })
-                .ToListAsync();
+                .PaginateAsync(paginationParams);
 
             return users;
         }
@@ -122,6 +120,11 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
             _dbContext.User.Remove(user);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAsync(Guid id)
+        {
+            return await _dbContext.User.Where(x => x.Id == id).ExecuteDeleteAsync();
         }
     }
 }

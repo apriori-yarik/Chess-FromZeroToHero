@@ -1,5 +1,5 @@
-﻿using Chess_FromZeroToHero.Contracts.Dtos.Pagination;
-using Chess_FromZeroToHero.Contracts.Dtos.User;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
+using Chess_FromZeroToHero.DataAccess.Pagination;
 using Chess_FromZeroToHero.DataAccess.Repositories.Interfaces;
 using Chess_FromZeroToHero.Services.Services.Interfaces;
 using System;
@@ -22,7 +22,7 @@ namespace Chess_FromZeroToHero.Services.Services
 
         public async Task CreateUserAsync(UserDto dto) => await _userRepository.CreateUserAsync(dto);
 
-        public async Task DeleteUserAsync(UserWithIdDto dto) => await _userRepository.DeleteUserAsync(dto);
+        public async Task<int> DeleteAsync(Guid id) => await _userRepository.DeleteAsync(id);
 
         public async Task<UserWithIdDto> GetUserByIdAsync(Guid id) => await _userRepository.GetUserByIdAsync(id);
 

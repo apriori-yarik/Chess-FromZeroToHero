@@ -1,5 +1,5 @@
-﻿using Chess_FromZeroToHero.Contracts.Dtos.Pagination;
-using Chess_FromZeroToHero.Contracts.Dtos.User;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
+using Chess_FromZeroToHero.DataAccess.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,6 @@ namespace Chess_FromZeroToHero.Services.Services.Interfaces
 
         Task UpdateUserAsync(UserWithIdDto dto);
 
-        Task DeleteUserAsync(UserWithIdDto dto);
+        Task<int> DeleteAsync(Guid id);
     }
 }

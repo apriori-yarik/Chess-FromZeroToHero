@@ -1,17 +1,13 @@
-﻿using Chess_FromZeroToHero.Contracts.Dtos.Pagination;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Chess_FromZeroToHero.DataAccess.Pagination;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chess_FromZeroToHero.Contracts.Helpers
 {
-    public static class PaginationHelper
+    public static class QueryableExtensions
     {
-        public static IQueryable<T> Paginate<T>(IQueryable<T> query, PaginationParams paginationParams)
+        public static async Task<List<T>> PaginateAsync<T>(this IQueryable<T> query, PaginationParams paginationParams)
         {
-            int elements = query.Count();
+            int elements = await query.CountAsync();
             int skip = (paginationParams.Page - 1) * paginationParams.ItemsPerPage;
             int take = paginationParams.Page * paginationParams.ItemsPerPage > elements
                 ? paginationParams.Page * paginationParams.ItemsPerPage - elements
@@ -22,7 +18,7 @@ namespace Chess_FromZeroToHero.Contracts.Helpers
                 throw new ArgumentException("Not enough data for the current page");
             }
 
-            return query.Skip(skip).Take(take);
+            return await query.Skip(skip).Take(take).ToListAsync();
         }
     }
 }
