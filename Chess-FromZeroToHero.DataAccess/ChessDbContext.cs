@@ -33,7 +33,7 @@ namespace Chess_FromZeroToHero.DataAccess
                 u.Property(x => x.Password).IsRequired();
                 u.Property(x => x.FirstName).HasMaxLength(100).IsRequired();
                 u.Property(x => x.LastName).HasMaxLength(100).IsRequired();
-                u.Property(x => x.Age).IsRequired();
+                u.Property(x => x.BirthDate).IsRequired();
                 u.Property(x => x.Rating).HasDefaultValue(1200).IsRequired();
             });
 

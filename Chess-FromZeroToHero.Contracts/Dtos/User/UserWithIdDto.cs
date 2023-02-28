@@ -19,6 +19,6 @@ namespace Chess_FromZeroToHero.Contracts.Dtos.User
 
         public string LastName { get; set; }
 
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

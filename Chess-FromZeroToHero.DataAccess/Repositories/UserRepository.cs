@@ -38,7 +38,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Age = user.Age,
+                BirthDate = user.BirthDate,
                 Username = user.Username,
                 Rating = user.Rating,
             };
@@ -52,13 +52,13 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
                     Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Age = user.Age,
+                    BirthDate = user.BirthDate,
                     Username = user.Username,
                     Rating = user.Rating,
                 })
                 .PaginateAsync(paginationParams);
 
-            return users.OrderBy(x => x.Rating).ThenBy(x => x.Age).ToList();
+            return users.OrderBy(x => x.Rating).ToList();
         }
 
         public async Task CreateAsync(UserDto dto)
@@ -67,7 +67,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                Age = dto.Age,
+                BirthDate = dto.BirthDate,
                 Username = dto.Username,
                 Password = dto.Password,
                 Rating = dto.Rating,
@@ -88,7 +88,7 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
 
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
-            user.Age = dto.Age;
+            user.BirthDate = dto.BirthDate;
             user.Username = dto.Username;
             user.Password = dto.Password;
             user.Rating = dto.Rating;

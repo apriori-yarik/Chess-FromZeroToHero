@@ -18,7 +18,7 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
 
         public string LastName { get; set; }
 
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public ICollection<UserPuzzle> UserPuzzles { get; set; }
 
