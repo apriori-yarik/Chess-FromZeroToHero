@@ -28,6 +28,6 @@ namespace Chess_FromZeroToHero.Services.Services
 
         public async Task<ICollection<UserWithIdDto>> GetAllAsync(PaginationParams paginationParams) => await _userRepository.GetAllAsync(paginationParams);
 
-        public async Task<bool> UpdateAsync(UserWithIdDto dto) => await _userRepository.UpdateAsync(dto);
+        public async Task<int> UpdateAsync(UserWithIdDto dto) => await _userRepository.UpdateAsync(dto);
     }
 }

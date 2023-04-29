@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess-FromZeroToHero", "Che
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess-FromZeroToHero.Contracts", "Chess-FromZeroToHero.Contracts\Chess-FromZeroToHero.Contracts.csproj", "{CFC04BFE-EC9B-4007-9670-6FD24849BE1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess-FromZeroToHero.Services", "Chess-FromZeroToHero.Services\Chess-FromZeroToHero.Services.csproj", "{27A3688A-5D53-486F-AEB0-A8523F825D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess-FromZeroToHero.Services", "Chess-FromZeroToHero.Services\Chess-FromZeroToHero.Services.csproj", "{27A3688A-5D53-486F-AEB0-A8523F825D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

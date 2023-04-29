@@ -47,11 +47,6 @@ namespace Chess_FromZeroToHero.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(UserDto dto)
         {
-            if (dto is null)
-            {
-                return BadRequest();
-            }
-
             await _userService.CreateAsync(dto);
 
             return Ok();
@@ -73,9 +68,9 @@ namespace Chess_FromZeroToHero.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UserWithIdDto dto)
         {
-            var hasUpdated = await _userService.UpdateAsync(dto);
+            var rowsAffected = await _userService.UpdateAsync(dto);
 
-            if (!hasUpdated)
+            if (rowsAffected == 0)
             {
                 return NotFound();
             }

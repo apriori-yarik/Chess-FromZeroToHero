@@ -16,7 +16,7 @@ namespace Chess_FromZeroToHero.Services.Services.Interfaces
 
         Task CreateAsync(UserDto dto);
 
-        Task<bool> UpdateAsync(UserWithIdDto dto);
+        Task<int> UpdateAsync(UserWithIdDto dto);
 
         Task<int> DeleteAsync(Guid id);
     }

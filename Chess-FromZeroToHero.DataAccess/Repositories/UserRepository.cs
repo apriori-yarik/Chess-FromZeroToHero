@@ -77,25 +77,23 @@ namespace Chess_FromZeroToHero.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateAsync(UserWithIdDto dto)
+        public async Task<int> UpdateAsync(UserWithIdDto dto)
         {
             var user = await _dbContext.User.FindAsync(dto.Id);
 
             if (user == null)
             {
-                return false;
+                return 0;
             }
 
-            user.FirstName = dto.FirstName;
-            user.LastName = dto.LastName;
-            user.BirthDate = dto.BirthDate;
-            user.Username = dto.Username;
-            user.Password = dto.Password;
-            user.Rating = dto.Rating;
-
-            _dbContext.User.Update(user);
-            await _dbContext.SaveChangesAsync();
-            return true;
+            return await _dbContext.User.Where(x => x.Id == dto.Id).ExecuteUpdateAsync(s => s
+                .SetProperty(x => x.FirstName, x => dto.FirstName)
+                .SetProperty(x => x.LastName, x => dto.LastName)
+                .SetProperty(x => x.BirthDate, x => dto.BirthDate)
+                .SetProperty(x => x.Username, x => dto.Username)
+                .SetProperty(x => x.Password, x => dto.Password)
+                .SetProperty(x => x.Rating, x => dto.Rating)
+            );
         }
 
         public async Task<int> DeleteAsync(Guid id)
