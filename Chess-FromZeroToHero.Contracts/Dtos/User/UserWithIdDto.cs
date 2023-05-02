@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chess_FromZeroToHero.DataAccess.Entities
+namespace Chess_FromZeroToHero.Contracts.Dtos.User
 {
-    public class User : BaseEntity
+    public class UserWithIdDto : BaseWithIdDto
     {
         public string Username { get; set; }
 
@@ -19,9 +20,5 @@ namespace Chess_FromZeroToHero.DataAccess.Entities
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
-
-        public ICollection<UserPuzzle> UserPuzzles { get; set; }
-
-        public ICollection<UserGame> UserGames { get; set; }
     }
 }

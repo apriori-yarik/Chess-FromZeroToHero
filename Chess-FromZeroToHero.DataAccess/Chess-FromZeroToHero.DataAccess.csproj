@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chess-FromZeroToHero.Contracts\Chess-FromZeroToHero.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
