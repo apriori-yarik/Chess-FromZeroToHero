@@ -1,6 +1,7 @@
 ﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
 using Chess_FromZeroToHero.DataAccess.Pagination;
 using Chess_FromZeroToHero.Services.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
