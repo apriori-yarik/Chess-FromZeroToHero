@@ -1,6 +1,7 @@
 ﻿using Chess_FromZeroToHero.Contracts.Dtos;
 using Chess_FromZeroToHero.Contracts.Dtos.User;
 using Chess_FromZeroToHero.DataAccess.Repositories;
+using Chess_FromZeroToHero.DataAccess.Repositories.Interfaces;
 using Chess_FromZeroToHero.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,10 +17,10 @@ namespace Chess_FromZeroToHero.Services.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly JWTSettingsDto _jwtSettingsDto;
 
-        public AuthService(UserRepository userRepository, JWTSettingsDto jwtSettingsDto)
+        public AuthService(IUserRepository userRepository, JWTSettingsDto jwtSettingsDto)
         {
             _userRepository = userRepository;
             _jwtSettingsDto = jwtSettingsDto;

@@ -28,6 +28,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<UserDtoValidator>();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddControllers();
 
 builder.Services.AddFluentValidationAutoValidation();
