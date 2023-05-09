@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chess_FromZeroToHero.Contracts.Dtos.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace Chess_FromZeroToHero.Services.Services.Interfaces
 {
     public interface IAuthService
     {
-        public string GenerateToken();
+        Task RegisterAsync(UserDto userDto);
+
+        Task<string> LoginAsync(string username, string password);
+
     }
 }

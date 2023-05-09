@@ -1,3 +1,4 @@
+using Chess_FromZeroToHero.Contracts.Dtos;
 using Chess_FromZeroToHero.Contracts.Dtos.User;
 using Chess_FromZeroToHero.DataAccess;
 using Chess_FromZeroToHero.DataAccess.Repositories;
@@ -9,6 +10,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -30,6 +32,16 @@ builder.Services.AddControllers();
 
 builder.Services.AddFluentValidationAutoValidation();
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JWTSettingsDto>();
+
+builder.Services.AddSingleton(new JWTSettingsDto()
+{
+    Key = jwtSettings.Key,
+    Issuer = jwtSettings.Issuer,
+    Audience = jwtSettings.Audience,
+    Expiration = jwtSettings.Expiration
+});
+
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -44,9 +56,9 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-        ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
     };
 });
 
